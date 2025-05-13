@@ -76,7 +76,8 @@ public class MazoTest {
 		// verificacion
 		assertTrue(cartaUnoAgregada);
 		assertTrue(cartaDosAgregada);
-		assertFalse(cartaTresAgregada);
+		assertFalse(cartaTresAgregada); //pq en el equals evalua salud y numero, mas el hashcode por lo
+										//que lo considera diferente
 	}
 	
 	@Test
@@ -103,22 +104,28 @@ public class MazoTest {
 		
 		assertTrue(cartaAgregada);
 		assertFalse(cartaDosAgregada);
+	
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
+	@Test
+	public void dadoaQueExistenCartasIgualesCuandoLasAgregoAlMazoSinDuplicadosObtengoUnResultadoNegativo() {
+		Carta carta = new Carta();
+		carta.setNumero(1);
+		
+		Carta cartaDos = new Carta();
+		cartaDos.setNumero(1);
+		cartaDos.recibirDanio(10);
+		
+		Carta cartaTres = new Carta();
+		cartaTres.setNumero(1);
+		cartaTres.recibirDanio(11);
+		
+		boolean cartaAgregada = this.mazo.agregarCartaSinDuplicados(carta);
+		boolean cartaDosAgregada = this.mazo.agregarCartaSinDuplicados(cartaTres);
+		boolean cartaTresAgregada = this.mazo.agregarCartaSinDuplicados(cartaDos);
+		
+		assertTrue(cartaAgregada);
+		assertFalse(cartaDosAgregada);
+		assertFalse(cartaTresAgregada);	
+	}
 }
